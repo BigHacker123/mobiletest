@@ -9,7 +9,7 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 local Functions = {}
 local Esp = {Settings={
     Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
-    Sleeping=true,SleepingColor=Color3.fromRGB(255,255,255),
+    Sleeping=false,SleepingColor=Color3.fromRGB(255,255,255),
     Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
     Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
     Tool=false,ToolColor=Color3.fromRGB(255,255,255),
@@ -73,6 +73,24 @@ function Esp:UpdateEsp()
         local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
         local sleeping = Functions:IsSleeping(Character)
+        if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
+            local TeamTag = Character.Head.Teamtag.Enabled
+            if OnScreen == true and Esp.Settings.Boxes == true and Distance <= Esp.Settings.RenderDistance then
+                if Esp.Settings.TeamCheck == true and TeamTag == false then 
+                    v.Box.Visible = true
+                elseif Esp.Settings.TeamCheck == true and TeamTag == true then
+                    v.Box.Visible = false
+                else
+                    v.Box.Visible = true
+                end
+                if Esp.Settings.TargetSleepers == true and sleeping == true then
+                    v.Box.Visible = false
+                end
+                v.Box.Position = Vector2.new(BoxPosX,BoxPosY);v.Box.Size = Vector2.new(w,h)
+                v.Box.Color = Esp.Settings.BoxesColor
+            else
+                v.Box.Visible = false
+            end
             if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
                 if Esp.Settings.TargetSleepers == true and sleeping == true then v.ViewAngle.Visible = false end
