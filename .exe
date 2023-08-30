@@ -8,13 +8,8 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-    Boxes=true,BoxesColor=Color3.fromRGB(144, 66, 245),
-    Sleeping=true,SleepingColor=Color3.fromRGB(255,255,255),
-    Distances=true,DistanceColor=Color3.fromRGB(255,255,255),
-    Armour=true,ArmourColor=Color3.fromRGB(255,255,255),
-    Tool=true,ToolColor=Color3.fromRGB(255,255,255),
-    ViewAngle=true,ViewAngleColor=Color3.fromRGB(255,255,255),ViewAngleThickness=1,ViewAngleTransparrency=1,
-    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=false,MinTextSize=11
+    ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
+    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11
 },Drawings={},Connections={},Players={}}
 local Fonts = {["UI"]=0,["System"]=1,["Plex"]=2,["Monospace"]=3}
 local cache = {}
@@ -43,10 +38,6 @@ end
 function Esp:CreateEsp(PlayerTable)
     if not PlayerTable then return end
     local drawings = {}
-    drawings.Box = Functions:Draw("Square",{Transparency=0.35,Color=Esp.Settings.BoxesColor,Visible=false,Visible=false});
-    drawings.Sleeping = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
-    drawings.Distance = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
-    drawings.Armour = Functions:Draw("Text",{Text = "None",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=false,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.ArmourColor,ZIndex = 2,Visible=false})
     drawings.ViewAngle = Functions:Draw("Line",{Thickness=Esp.Settings.ViewAngleThickness,Transparency=Esp.Settings.ViewAngleTransparrency,Color=Esp.Settings.ViewAngleColor,ZIndex=2,Visible=false})
     drawings.PlayerTable = PlayerTable
     Esp.Players[PlayerTable.model] = drawings
@@ -73,24 +64,6 @@ function Esp:UpdateEsp()
         local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
         local offsetCFrame = CFrame.new(0, 0, -4)
         local sleeping = Functions:IsSleeping(Character)
-        if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
-            local TeamTag = Character.Head.Teamtag.Enabled
-            if OnScreen == true and Esp.Settings.Boxes == true and Distance <= Esp.Settings.RenderDistance then
-                if Esp.Settings.TeamCheck == true and TeamTag == false then 
-                    v.Box.Visible = true
-                elseif Esp.Settings.TeamCheck == true and TeamTag == true then
-                    v.Box.Visible = false
-                else
-                    v.Box.Visible = true
-                end
-                if Esp.Settings.TargetSleepers == true and sleeping == true then
-                    v.Box.Visible = false
-                end
-                v.Box.Position = Vector2.new(BoxPosX,BoxPosY);v.Box.Size = Vector2.new(w,h)
-                v.Box.Color = Esp.Settings.BoxesColor
-            else
-                v.Box.Visible = false
-            end
             if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
                 if Esp.Settings.TargetSleepers == true and sleeping == true then v.ViewAngle.Visible = false end
@@ -110,7 +83,7 @@ function Esp:UpdateEsp()
                 v.ViewAngle.Visible = false
             end
         else
-            v.Box.Visible=false;v.Armour.Visible=false;v.Distance.Visible=false;v.ViewAngle.Visible=false;v.Sleeping.Visible=false;
+            v.ViewAngle.Visible=false
         end
     end
 end
