@@ -8,7 +8,7 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-    Boxes=true,BoxesOutline=true,BoxesColor=Color3.fromRGB(255,255,255),BoxesOutlineColor=Color3.fromRGB(0,0,0),
+    Boxes=true,BoxesColor=Color3.fromRGB(144, 66, 245),
     Sleeping=true,SleepingColor=Color3.fromRGB(255,255,255),
     Distances=true,DistanceColor=Color3.fromRGB(255,255,255),
     Armour=true,ArmourColor=Color3.fromRGB(255,255,255),
@@ -43,8 +43,7 @@ end
 function Esp:CreateEsp(PlayerTable)
     if not PlayerTable then return end
     local drawings = {}
-    drawings.BoxOutline = Functions:Draw("Square",{Thickness=2,Filled=false,Transparency=1,Color=Esp.Settings.BoxesOutlineColor,Visible=false,ZIndex = -1,Visible=false});
-    drawings.Box = Functions:Draw("Square",{Thickness=1,Filled=false,Transparency=1,Color=Esp.Settings.BoxesColor,Visible=false,ZIndex = 2,Visible=false});
+    drawings.Box = Functions:Draw("Square",{Thickness=1,Filled=false,Transparency=0.5,Color=Esp.Settings.BoxesColor,Visible=false,Visible=false});
     drawings.Sleeping = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
     drawings.Distance = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
     drawings.Armour = Functions:Draw("Text",{Text = "None",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=false,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.ArmourColor,ZIndex = 2,Visible=false})
@@ -68,7 +67,7 @@ function Esp:UpdateEsp()
         local Character = i
         local Position,OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
         local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100;
-        local w,h = math.floor(45 * scale), math.floor(72 * scale);
+        local w,h = math.floor(38 * scale), math.floor(65 * scale);
         local x,y = math.floor(Position.X), math.floor(Position.Y);
         local Distance = (CharcaterMiddle:GetPivot().Position-Character:GetPivot().Position).Magnitude
         local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
@@ -78,20 +77,19 @@ function Esp:UpdateEsp()
             local TeamTag = Character.Head.Teamtag.Enabled
             if OnScreen == true and Esp.Settings.Boxes == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then 
-                    v.BoxOutline.Visible = Esp.Settings.BoxesOutline;v.Box.Visible = true
+                    v.Box.Visible = true
                 elseif Esp.Settings.TeamCheck == true and TeamTag == true then
-                    v.BoxOutline.Visible = false;v.Box.Visible = false
+                    v.Box.Visible = false
                 else
-                    v.BoxOutline.Visible = Esp.Settings.BoxesOutline;v.Box.Visible = true
+                    v.Box.Visible = true
                 end
                 if Esp.Settings.TargetSleepers == true and sleeping == true then
-                    v.BoxOutline.Visible = false;v.Box.Visible = false
+                    v.Box.Visible = false
                 end
-                v.BoxOutline.Position = Vector2.new(BoxPosX,BoxPosY);v.BoxOutline.Size = Vector2.new(w,h)
                 v.Box.Position = Vector2.new(BoxPosX,BoxPosY);v.Box.Size = Vector2.new(w,h)
-                v.Box.Color = Esp.Settings.BoxesColor;v.BoxOutline.Color = Esp.Settings.BoxesOutlineColor
+                v.Box.Color = Esp.Settings.BoxesColor
             else
-                v.BoxOutline.Visible = false;v.Box.Visible = false
+                v.Box.Visible = false
             end
             if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
@@ -112,7 +110,7 @@ function Esp:UpdateEsp()
                 v.ViewAngle.Visible = false
             end
         else
-            v.Box.Visible=false;v.BoxOutline.Visible=false;v.Armour.Visible=false;v.Distance.Visible=false;v.ViewAngle.Visible=false;v.Sleeping.Visible=false;
+            v.Box.Visible=false;v.Armour.Visible=false;v.Distance.Visible=false;v.ViewAngle.Visible=false;v.Sleeping.Visible=false;
         end
     end
 end
