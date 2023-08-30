@@ -8,9 +8,8 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-    ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
-    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11
-},Drawings={},Connections={},Players={}}
+ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
+TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11,},Drawings={},Connections={},Players={}}
 local Fonts = {["UI"]=0,["System"]=1,["Plex"]=2,["Monospace"]=3}
 local cache = {}
 
