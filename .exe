@@ -8,8 +8,14 @@ local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middl
 --// Tables
 local Functions = {}
 local Esp = {Settings={
-ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
-TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11,},Drawings={},Connections={},Players={}}
+    Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
+    Sleeping=true,SleepingColor=Color3.fromRGB(255,255,255),
+    Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
+    Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
+    Tool=false,ToolColor=Color3.fromRGB(255,255,255),
+    ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
+    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11
+},Drawings={},Connections={},Players={}}
 local Fonts = {["UI"]=0,["System"]=1,["Plex"]=2,["Monospace"]=3}
 local cache = {}
 
@@ -37,6 +43,10 @@ end
 function Esp:CreateEsp(PlayerTable)
     if not PlayerTable then return end
     local drawings = {}
+    drawings.Box = Functions:Draw("Square",{Transparency=0.35,Color=Esp.Settings.BoxesColor,Visible=false,Visible=false});
+    drawings.Sleeping = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
+    drawings.Distance = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
+    drawings.Armour = Functions:Draw("Text",{Text = "None",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=false,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.ArmourColor,ZIndex = 2,Visible=false})
     drawings.ViewAngle = Functions:Draw("Line",{Thickness=Esp.Settings.ViewAngleThickness,Transparency=Esp.Settings.ViewAngleTransparrency,Color=Esp.Settings.ViewAngleColor,ZIndex=2,Visible=false})
     drawings.PlayerTable = PlayerTable
     Esp.Players[PlayerTable.model] = drawings
@@ -82,7 +92,7 @@ function Esp:UpdateEsp()
                 v.ViewAngle.Visible = false
             end
         else
-            v.ViewAngle.Visible=false
+            v.Box.Visible=false;v.Armour.Visible=false;v.Distance.Visible=false;v.ViewAngle.Visible=false;v.Sleeping.Visible=false;
         end
     end
 end
