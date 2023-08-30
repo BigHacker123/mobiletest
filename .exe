@@ -93,45 +93,6 @@ function Esp:UpdateEsp()
             else
                 v.BoxOutline.Visible = false;v.Box.Visible = false
             end
-            if OnScreen == true and Esp.Settings.Sleeping == true and Distance <= Esp.Settings.RenderDistance then
-                if sleeping == true then v.Sleeping.Text = "[S] Player" else v.Sleeping.Text = "[E] Player" end
-                if Esp.Settings.TeamCheck == true and TeamTag == false then
-                    v.Sleeping.Visible = true
-                elseif Esp.Settings.TeamCheck == true and TeamTag == true then
-                    v.Sleeping.Visible = false
-                end
-                if Esp.Settings.TargetSleepers == true and sleeping == true then v.Sleeping.Visible = false end
-
-                v.Sleeping.Outline=Esp.Settings.TextOutline;v.Sleeping.Color=Esp.Settings.SleepingColor;v.Sleeping.Size=math.max(math.min(math.abs(Esp.Settings.TextSize*scale),Esp.Settings.TextSize),Esp.Settings.MinTextSize);v.Sleeping.Color = Esp.Settings.SleepingColor;v.Sleeping.Font=Esp.Settings.TextFont;v.Sleeping.Position = Vector2.new(x,math.floor(y-h*0.5-v.Sleeping.TextBounds.Y))
-            else
-                v.Sleeping.Visible=false
-            end
-            if OnScreen == true and Esp.Settings.Distances == true and Distance <= Esp.Settings.RenderDistance then
-                if Esp.Settings.TeamCheck == true and TeamTag == false then
-                    v.Distance.Visible = true
-                elseif Esp.Settings.TeamCheck == true and TeamTag == true then
-                    v.Distance.Visible = false
-                end
-                if Esp.Settings.TargetSleepers == true and sleeping == true then v.Distance.Visible = false end
-                if Esp.Settings.Sleeping == false then
-                    v.Distance.Text = "["..math.floor(Distance).."]"
-                else
-                    v.Distance.Text = "["..math.floor(Distance).."]"
-                end
-                v.Distance.Outline=Esp.Settings.TextOutline;v.Distance.Color=Esp.Settings.SleepingColor;v.Distance.Size=math.max(math.min(math.abs(Esp.Settings.TextSize*scale),Esp.Settings.TextSize),Esp.Settings.MinTextSize);v.Distance.Color = Esp.Settings.DistanceColor;v.Distance.Font=Esp.Settings.TextFont;v.Distance.Position = Vector2.new(x,math.floor(y+h*.5))
-            else
-                v.Distance.Visible = false
-            end
-            if OnScreen == true and Esp.Settings.Armour == true and Distance <= Esp.Settings.RenderDistance then
-                if Character.Armor:FindFirstChildOfClass("Folder") then v.Armour.Text = "Armoured" else v.Armour.Text = "None" end
-                if Esp.Settings.TeamCheck == true and TeamTag == false then v.Armour.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.Armour.Visible = false else v.Armour.Visible = true end
-                if Esp.Settings.TargetSleepers == true and sleeping == true then v.Armour.Visible = false end
-                v.Armour.Outline=Esp.Settings.TextOutline;v.Armour.Size = math.max(math.min(math.abs(Esp.Settings.TextSize*scale),Esp.Settings.TextSize),Esp.Settings.MinTextSize);
-                v.Armour.Position=Vector2.new(math.floor((BoxPosX+w)+v.Armour.TextBounds.X/10),BoxPosY+v.Armour.TextBounds.Y*1.55*0.5-((v.Armour.TextBounds.Y*2)*0.5));
-                v.Armour.Color = Esp.Settings.ArmourColor;v.Armour.Font=Esp.Settings.TextFont
-            else
-                v.Armour.Visible = false
-            end
             if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
                 if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
                 if Esp.Settings.TargetSleepers == true and sleeping == true then v.ViewAngle.Visible = false end
