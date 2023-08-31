@@ -1,3 +1,173 @@
---// Mobile
+--// Trident [Mobile]
 
-local v0=game:GetService("Workspace").CurrentCamera;local v1=game:GetService("Workspace").Ignore.LocalCharacter.Middle;local v2={};local v3={Settings={Boxes=false,BoxesColor=Color3.fromRGB(144,66,245),Sleeping=false,SleepingColor=Color3.fromRGB(613 -358 ,255,1492 -(13 + 1224) ),Distances=false,DistanceColor=Color3.fromRGB(1046 -(368 + 423) ,255,255),Armour=false,ArmourColor=Color3.fromRGB(801 -546 ,255,255),Tool=false,ToolColor=Color3.fromRGB(273 -(10 + 8) ,980 -725 ,255),ViewAngle=true,ViewAngleColor=Color3.fromRGB(144,66,245),ViewAngleThickness=1,ViewAngleTransparrency=1,TextFont=444 -(416 + 26) ,TextOutline=true,TextSize=13,RenderDistance=3192 -2192 ,TeamCheck=false,TargetSleepers=true,MinTextSize=5 + 6 },Drawings={},Connections={},Players={}};local v4={UI=0,System=1 -0 ,Plex=440 -(145 + 293) ,Monospace=433 -(44 + 386) };local v5={};v2.IsSleeping=function(v27,v28)if (v28 and v28:FindFirstChild("AnimationController") and v28.AnimationController:FindFirstChild("Animator")) then for v71,v72 in pairs(v28.AnimationController.Animator:GetPlayingAnimationTracks()) do if (v72.Animation.AnimationId=="rbxassetid://13280887764") then return true;else return false;end end end end;v2.Draw=function(v29,v30,v31)local v32=1486 -(998 + 488) ;local v33;while true do if (v32==(1 + 0)) then for v88,v89 in pairs(v31) do v33[v88]=v89;end table.insert(v3.Drawings,v33);v32=2 + 0 ;end if (v32==2) then return v33;end if (v32==(772 -(201 + 571))) then if ( not v30 and  not v31) then return;end v33=Drawing.new(v30);v32=1139 -(116 + 1022) ;end end end;v3.CreateEsp=function(v34,v35)local v36=0 -0 ;local v37;while true do if (3==v36) then v37.ViewAngle=v2:Draw("Line",{Thickness=v3.Settings.ViewAngleThickness,Transparency=v3.Settings.ViewAngleTransparrency,Color=v3.Settings.ViewAngleColor,ZIndex=2 + 0 ,Visible=false});v37.PlayerTable=v35;v36=14 -10 ;end if (v36==(14 -10)) then v3.Players[v35.model]=v37;break;end if (v36==(861 -(814 + 45))) then v37.Distance=v2:Draw("Text",{Text="Nil",Font=v3.Settings.TextFont,Size=v3.Settings.TextSize,Center=true,Outline=v3.Settings.TextOutline,Color=v3.Settings.SleepingColor,ZIndex=4 -2 ,Visible=false});v37.Armour=v2:Draw("Text",{Text="None",Font=v3.Settings.TextFont,Size=v3.Settings.TextSize,Center=false,Outline=v3.Settings.TextOutline,Color=v3.Settings.ArmourColor,ZIndex=2,Visible=false});v36=3;end if (v36==(0 + 0)) then if  not v35 then return;end v37={};v36=1 + 0 ;end if (v36==(886 -(261 + 624))) then v37.Box=v2:Draw("Square",{Transparency=0.35 -0 ,Color=v3.Settings.BoxesColor,Visible=false,Visible=false});v37.Sleeping=v2:Draw("Text",{Text="Nil",Font=v3.Settings.TextFont,Size=v3.Settings.TextSize,Center=true,Outline=v3.Settings.TextOutline,Color=v3.Settings.SleepingColor,ZIndex=1082 -(1020 + 60) ,Visible=false});v36=1425 -(630 + 793) ;end end end;v3.RemoveEsp=function(v38,v39)local v40=0;while true do if ((3 -2)==v40) then if  not esp then return;end for v91,v92 in pairs(esp) do if ( not type(v92)=="table") then v92:Remove();end end v40=9 -7 ;end if (v40==(1 + 1)) then v3.Players[v39.model]=nil;break;end if (v40==(0 -0)) then if ( not v39 and (v39.model~=nil)) then return;end esp=v3.Players[v39.model];v40=1;end end end;v3.UpdateEsp=function(v41)for v54,v55 in pairs(v3.Players) do local v56=v54;local v57,v58=v0:WorldToViewportPoint(v56:GetPivot().Position);local v59=((1748 -(760 + 987))/(v57.Z * math.tan(math.rad(v0.FieldOfView * (1913.5 -(1789 + 124)) )) * (768 -(745 + 21)))) * (35 + 65) ;local v60,v61=math.floor(32 * v59 ),math.floor((165 -105) * v59 );local v62,v63=math.floor(v57.X),math.floor(v57.Y);local v64=(v1:GetPivot().Position-v56:GetPivot().Position).Magnitude;local v65,v66=math.floor(v62-(v60 * (0.5 -0)) ),math.floor(v63-(v61 * (0.5 + 0)) );local v67=CFrame.new(0 + 0 ,0, -(1059 -(87 + 968)));local v68=v2:IsSleeping(v56);if (v56 and v56:FindFirstChild("HumanoidRootPart") and v56:FindFirstChild("Head")) then local v82=v56.Head.Teamtag.Enabled;if ((v58==true) and (v3.Settings.Boxes==true) and (v64<=v3.Settings.RenderDistance)) then local v96=0 -0 ;while true do if (v96==1) then v55.Box.Position=Vector2.new(v65,v66);v55.Box.Size=Vector2.new(v60,v61);v96=2 + 0 ;end if ((4 -2)==v96) then v55.Box.Color=v3.Settings.BoxesColor;break;end if (v96==(1413 -(447 + 966))) then if ((v3.Settings.TeamCheck==true) and (v82==false)) then v55.Box.Visible=true;elseif ((v3.Settings.TeamCheck==true) and (v82==true)) then v55.Box.Visible=false;else v55.Box.Visible=true;end if ((v3.Settings.TargetSleepers==true) and (v68==true)) then v55.Box.Visible=false;end v96=2 -1 ;end end else v55.Box.Visible=false;end if ((v58==true) and (v3.Settings.ViewAngle==true) and (v64<=v3.Settings.RenderDistance)) then local v98=1817 -(1703 + 114) ;local v99;local v100;local v101;local v102;local v103;while true do if (v98==3) then if (v58==true) then local v122=701 -(376 + 325) ;while true do if (v122==(0 -0)) then v55.ViewAngle.To=Vector2.new(v103.X,v103.Y);v100=CFrame.new(0 -0 ,0 + 0 , -4);break;end end end break;end if (v98==2) then v101=math.clamp((1/v64) * (220 -120) ,14.1 -(9 + 5) ,377 -(85 + 291) );v102=v56.Head.CFrame:ToWorldSpace(v100);v100=v100 * CFrame.new(1265 -(243 + 1022) ,0 -0 ,0.4) ;v103=v0:WorldToViewportPoint(Vector3.new(v102.X,v102.Y,v102.Z));v98=3;end if (v98==0) then if ((v3.Settings.TeamCheck==true) and (v82==false)) then v55.ViewAngle.Visible=true;elseif ((v3.Settings.TeamCheck==true) and (v82==true)) then v55.ViewAngle.Visible=false;else v55.ViewAngle.Visible=true;end if ((v3.Settings.TargetSleepers==true) and (v68==true)) then v55.ViewAngle.Visible=false;end v55.ViewAngle.Color=v3.Settings.ViewAngleColor;v55.ViewAngle.Thickness=v3.Settings.ViewAngleThickness;v98=1 + 0 ;end if (v98==1) then v55.Transparency=v3.Settings.ViewAngleTransparrency;v99=v0:WorldToViewportPoint(v56.Head.Position);v100=CFrame.new(1180 -(1123 + 57) ,0 + 0 , -(258 -(163 + 91)));v55.ViewAngle.From=Vector2.new(v99.X,v99.Y);v98=1932 -(1869 + 61) ;end end else v55.ViewAngle.Visible=false;end else v55.Box.Visible=false;v55.Armour.Visible=false;v55.Distance.Visible=false;v55.ViewAngle.Visible=false;v55.Sleeping.Visible=false;end end end;local v11=game:GetService("RunService").RenderStepped;local v12=v11:Connect(function()v3:UpdateEsp();end);for v42,v43 in pairs(workspace:GetChildren()) do if v43:FindFirstChild("HumanoidRootPart") then local v69=0 + 0 ;while true do if (v69==0) then table.insert(v5,v43);v3:CreateEsp({model=v43});break;end end end end game:GetService("Workspace").ChildAdded:Connect(function(v44)if (v44:FindFirstChild("HumanoidRootPart") and  not table.find(v5,v44)) then table.insert(v5,v44);v3:CreateEsp({model=v44});end end);game:GetService("SoundService").PlayerHitHeadshot.SoundId="rbxassetid://1255040462";game:GetService("SoundService").PlayerHitHeadshot.Playing=true;local v15;v15=hookmetamethod(game,"__newindex",newcclosure(function(...)local v45=0;local v46;local v47;while true do if (1==v45) then return v15(...);end if (v45==(0 -0)) then v46,v47=...;if ( not checkcaller() and (v47=="Size") and (v46.Name=="Head")) then return Vector3.new(1.672248125076294 -0 ,0.835624098777771 + 0 ,0.835624098777771 -0 );end v45=1;end end end));local v16={HitBX=7.5,HitBY=7.5 + 0 ,HitBZ=7.5};for v48,v49 in pairs(workspace:GetChildren()) do if v49:FindFirstChild("HumanoidRootPart") then local v70=0;while true do if (v70==(1474 -(1329 + 145))) then v49.Head.Size=Vector3.new(v16.HitBX,v16.HitBY,v16.HitBZ);v49.Head.CanCollide=false;v70=972 -(140 + 831) ;end if (v70==(1851 -(1409 + 441))) then v49.Head.Color=Color3.fromRGB(144,66,963 -(15 + 703) );v49.Head.Material="ForceField";break;end end end end game.ReplicatedStorage.Player.Head.Size=Vector3.new(v16.HitBX,v16.HitBY,v16.HitBZ);local function v18(v50,v51)local v52=0 + 0 ;local v53;while true do if (v52==(438 -(262 + 176))) then v53={"LeftUpperArm","LeftLowerArm","LeftHand","RightUpperArm","RightLowerArm","RightHand"};for v93,v94 in ipairs(v53) do game:GetService("Workspace").Ignore.FPSArms[v94][v50]=v51;end break;end end end v18("Color",Color3.fromRGB(301 -157 ,1328 -(1091 + 171) ,40 + 205 ));v18("Material","ForceField");v18("TextureID","rbxassetid://9305457875");local v19=Drawing.new("Circle");v19.Position=Vector2.new(v0.ViewportSize.X/(6 -4) ,v0.ViewportSize.Y/(6 -4) );v19.Thickness=1;v19.ZIndex=3;v19.Visible=true;v19.Filled=true;v19.Radius=377 -(123 + 251) ;v19.Color=Color3.fromRGB(715 -571 ,66,943 -(208 + 490) );
+local Camera = game:GetService("Workspace").CurrentCamera
+local CharcaterMiddle = game:GetService("Workspace").Ignore.LocalCharacter.Middle
+
+-------
+
+--// Tables
+local Functions = {}
+local Esp = {Settings={
+    Boxes=false,BoxesColor=Color3.fromRGB(144, 66, 245),
+    Sleeping=false,SleepingColor=Color3.fromRGB(255,255,255),
+    Distances=false,DistanceColor=Color3.fromRGB(255,255,255),
+    Armour=false,ArmourColor=Color3.fromRGB(255,255,255),
+    Tool=false,ToolColor=Color3.fromRGB(255,255,255),
+    ViewAngle=true,ViewAngleColor=Color3.fromRGB(144, 66, 245),ViewAngleThickness=1,ViewAngleTransparrency=1,
+    TextFont=2,TextOutline=true,TextSize=13,RenderDistance=1000,TeamCheck=false,TargetSleepers=true,MinTextSize=11
+},Drawings={},Connections={},Players={}}
+local Fonts = {["UI"]=0,["System"]=1,["Plex"]=2,["Monospace"]=3}
+local cache = {}
+
+--// Functions
+function Functions:IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+		for i,v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then return true
+            else return false
+            end
+        end
+    end
+end
+function Functions:Draw(Type,Propities)
+    if not Type and not Propities then return end
+    local drawing = Drawing.new(Type)
+    for i,v in pairs(Propities) do drawing[i] = v end
+    table.insert(Esp.Drawings,drawing)
+    return drawing
+end
+function Esp:CreateEsp(PlayerTable)
+    if not PlayerTable then return end
+    local drawings = {}
+    drawings.Box = Functions:Draw("Square",{Transparency=0.35,Color=Esp.Settings.BoxesColor,Visible=false,Visible=false});
+    drawings.Sleeping = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
+    drawings.Distance = Functions:Draw("Text",{Text = "Nil",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=true,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.SleepingColor,ZIndex = 2,Visible=false})
+    drawings.Armour = Functions:Draw("Text",{Text = "None",Font=Esp.Settings.TextFont,Size=Esp.Settings.TextSize,Center=false,Outline=Esp.Settings.TextOutline,Color = Esp.Settings.ArmourColor,ZIndex = 2,Visible=false})
+    drawings.ViewAngle = Functions:Draw("Line",{Thickness=Esp.Settings.ViewAngleThickness,Transparency=Esp.Settings.ViewAngleTransparrency,Color=Esp.Settings.ViewAngleColor,ZIndex=2,Visible=false})
+    drawings.PlayerTable = PlayerTable
+    Esp.Players[PlayerTable.model] = drawings
+end
+function Esp:RemoveEsp(PlayerTable)
+    if not PlayerTable and PlayerTable.model ~= nil then return end
+    esp = Esp.Players[PlayerTable.model];
+    if not esp then return end
+    for i, v in pairs(esp) do
+        if not type(v) == "table" then v:Remove(); end
+    end
+    Esp.Players[PlayerTable.model] = nil;
+end
+function Esp:UpdateEsp()
+    for i,v in pairs(Esp.Players) do
+        local Character = i
+        local Position,OnScreen = Camera:WorldToViewportPoint(Character:GetPivot().Position);
+        local scale = 1 / (Position.Z * math.tan(math.rad(Camera.FieldOfView * 0.5)) * 2) * 100;
+        local w,h = math.floor(32 * scale), math.floor(60 * scale);
+        local x,y = math.floor(Position.X), math.floor(Position.Y);
+        local Distance = (CharcaterMiddle:GetPivot().Position-Character:GetPivot().Position).Magnitude
+        local BoxPosX,BoxPosY = math.floor(x - w * 0.5),math.floor(y - h * 0.5)
+        local offsetCFrame = CFrame.new(0, 0, -4)
+        local sleeping = Functions:IsSleeping(Character)
+        if Character and Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Head") then
+            local TeamTag = Character.Head.Teamtag.Enabled
+            if OnScreen == true and Esp.Settings.Boxes == true and Distance <= Esp.Settings.RenderDistance then
+                if Esp.Settings.TeamCheck == true and TeamTag == false then 
+                    v.Box.Visible = true
+                elseif Esp.Settings.TeamCheck == true and TeamTag == true then
+                    v.Box.Visible = false
+                else
+                    v.Box.Visible = true
+                end
+                if Esp.Settings.TargetSleepers == true and sleeping == true then
+                    v.Box.Visible = false
+                end
+                v.Box.Position = Vector2.new(BoxPosX,BoxPosY);v.Box.Size = Vector2.new(w,h)
+                v.Box.Color = Esp.Settings.BoxesColor
+            else
+                v.Box.Visible = false
+            end
+            if OnScreen == true and Esp.Settings.ViewAngle == true and Distance <= Esp.Settings.RenderDistance then
+                if Esp.Settings.TeamCheck == true and TeamTag == false then v.ViewAngle.Visible = true elseif Esp.Settings.TeamCheck == true and TeamTag == true then v.ViewAngle.Visible = false else v.ViewAngle.Visible = true end
+                if Esp.Settings.TargetSleepers == true and sleeping == true then v.ViewAngle.Visible = false end
+                v.ViewAngle.Color = Esp.Settings.ViewAngleColor;v.ViewAngle.Thickness=Esp.Settings.ViewAngleThickness;v.Transparency=Esp.Settings.ViewAngleTransparrency;
+                local headpos = Camera:WorldToViewportPoint(Character.Head.Position)
+                local offsetCFrame = CFrame.new(0, 0, -4)
+                v.ViewAngle.From = Vector2.new(headpos.X, headpos.Y)
+                local value = math.clamp(1/Distance*100, 0.1, 1)
+                local dir = Character.Head.CFrame:ToWorldSpace(offsetCFrame)
+                offsetCFrame = offsetCFrame * CFrame.new(0, 0, 0.4)
+                local dirpos = Camera:WorldToViewportPoint(Vector3.new(dir.X, dir.Y, dir.Z))
+                if OnScreen == true then
+                    v.ViewAngle.To = Vector2.new(dirpos.X, dirpos.Y)
+                    offsetCFrame = CFrame.new(0, 0, -4)
+                end
+            else
+                v.ViewAngle.Visible = false
+            end
+        else
+            v.Box.Visible=false;v.Armour.Visible=false;v.Distance.Visible=false;v.ViewAngle.Visible=false;v.Sleeping.Visible=false;
+        end
+    end
+end
+local PlayerUpdater = game:GetService("RunService").RenderStepped
+local PlayerConnection = PlayerUpdater:Connect(function()
+    Esp:UpdateEsp()
+end)
+for i,v in pairs(workspace:GetChildren()) do
+	if v:FindFirstChild("HumanoidRootPart") then
+        table.insert(cache,v)
+        Esp:CreateEsp({model=v})
+	end
+end
+game:GetService("Workspace").ChildAdded:Connect(function(child)
+    if child:FindFirstChild("HumanoidRootPart") and not table.find(cache,child) then
+        table.insert(cache,child)
+        Esp:CreateEsp({model=child})
+    end
+end)
+
+-------
+
+game:GetService("SoundService").PlayerHitHeadshot.EqualizerSoundEffect.HighGain = -1.5
+game:GetService("SoundService").PlayerHitHeadshot.SoundId =  "rbxassetid://8726881116"
+
+-------
+
+local antihitbox
+antihitbox = hookmetamethod(game, "__newindex", newcclosure(function(...)
+local self, k = ...
+if not checkcaller() and k == "Size" and self.Name == "Head" then
+  return Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
+end
+return antihitbox(...)
+end))
+
+local HitboxExpander = {HitBX = 7.5,HitBY = 7.5,HitBZ = 7.5,}
+for v, i in pairs(workspace:GetChildren()) do
+  if i:FindFirstChild("HumanoidRootPart") then
+    i.Head.Size = Vector3.new(HitboxExpander.HitBX, HitboxExpander.HitBY, HitboxExpander.HitBZ)
+    i.Head.CanCollide = false
+    i.Head.Color = Color3.fromRGB(144, 66, 245)
+    i.Head.Material = "ForceField"
+  end
+end
+game.ReplicatedStorage.Player.Head.Size = Vector3.new(HitboxExpander.HitBX, HitboxExpander.HitBY, HitboxExpander.HitBZ)
+
+-------
+
+local function setArmProperties(property, value)
+local armParts = {"LeftUpperArm", "LeftLowerArm", "LeftHand","RightUpperArm", "RightLowerArm", "RightHand"}
+for _, partName in ipairs(armParts) do game:GetService("Workspace").Ignore.FPSArms[partName][property] = value end
+end
+setArmProperties("Color", Color3.fromRGB(144, 66, 245)) setArmProperties("Material", "ForceField") setArmProperties("TextureID", "rbxassetid://9305457875")
+
+-------
+
+local CrossHairX = Drawing.new("Circle")
+--
+CrossHairX.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+CrossHairX.Thickness = 1
+CrossHairX.ZIndex = 3
+CrossHairX.Visible = true
+CrossHairX.Filled = true
+CrossHairX.Radius = 3
+CrossHairX.Color = Color3.fromRGB(144, 66, 245)
